@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"
+      integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <style>
+      footer {
+        background-color: #263980;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      footer p {
+        color: white;
+        font-size: 14px;
+      }
+
+      /* Styles for the social icons */
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 247px;
+        margin-top: 15px;
+      }
+
+      .social-icons a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        padding: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <header style="background-color: #263980; height: 40px"></header>
+    <div
+      id="ContentDiv"
+      style="max-width: 50%; margin: 0 auto; font-size: 18px"
+    >
+      <p style="font-weight: 600">Dear {{name}},</p>
+      <p>
+        We have received your request to onboard to the Organization. Use the LINK below
+        to proceed with onboarding with your Nira.
+      </p>
+
+      <p>
+        {{data}}
+      </p>
+
+      <p>
+        <span style="font-weight: 600">Note:-</span> The link will expire in 7
+        days, so be sure to use it right away.
+      </p>
+      <p>Warm Regards,</p>
+      <img
+        src="https://aitglobalindia.com/wp-content/uploads/2019/07/ait.png"
+        style="width: 75px; padding: 5px"
+      />
+    </div>
+    <footer>
+      <p>© 2023 AIT Global India Pvt. Ltd. All Rights Reserved.</p>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/AITGlobal/">
+          <img src="{{host}}/facebook.png" alt="Facebook" />
+        </a>
+        <a href="https://www.instagram.com/aitglobalindia/">
+          <img src="{{host}}/Insta.png" alt="Instagram" />
+        </a>
+        <a
+          href="https://www.linkedin.com/company/ait-global-inc-/?originalSubdomain=in"
+        >
+          <img src="{{host}}/Linkdn.png" alt="LinkedIn" />
+        </a>
+        <a href="https://twitter.com/aitglobalus?lang=en">
+          <img src="{{host}}/Twtr.png" alt="Twitter" />
+        </a>
+        <a href="https://www.youtube.com/channel/UC6ofX6uGztnJiU4W1ReD-gA">
+          <img src="{{host}}/Youtube.png" alt="YouTube" />
+        </a>
+      </div>
+    </footer>
+  </body>
+</html>
