@@ -1,0 +1,881 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model nucleus_user_main {
+  id                       Int                                     @id @default(autoincrement())
+  user_code                String?                                 @db.VarChar(10)
+  salutation               String?                                 @db.VarChar(10)
+  first_name               String?                                 @db.VarChar(50)
+  last_name                String?                                 @db.VarChar(50)
+  date_of_birth            DateTime?                               @db.Date
+  date_of_joining          DateTime?                               @db.Date
+  primary_email_address    String?                                 @db.VarChar(50)
+  secondary_email_address  String?                                 @db.VarChar(50)
+  primary_contact_number   String?                                 @db.VarChar(20)
+  secondary_contact_number String?                                 @db.VarChar(20)
+  password                 String?                                 @db.VarChar(256)
+  reporting_manager_id     String?                                 @db.VarChar(50)
+  offer_designation_id     Int?                                    @db.Integer
+  user_status              Int?                                    @db.Integer
+  role                     String?                                 @db.VarChar(50)
+  address                  String?                                 @db.VarChar(256)
+  state                    String?                                 @db.VarChar(30)
+  country                  String?                                 @db.VarChar(30)
+  city                     String?                                 @db.VarChar(30)
+  postalcode               String?                                 @db.VarChar(30)
+  highest_qualification_id Int?                                    @db.Integer
+  current_job_title        String?                                 @db.VarChar(30)
+  current_salary           String?                                 @db.VarChar(30)
+  skillset                 String?                                 @db.VarChar(256)
+  relevant_experience      String?                                 @db.VarChar(40)
+  current_employer         String?                                 @db.VarChar(50)
+  notice_period            String?                                 @db.VarChar(40)
+  expected_salary          String?                                 @db.VarChar(50)
+  recruiter                Int?                                    @db.Integer
+  profile_source_id        Int?                                    @db.Integer
+  job_type_id              Int?                                    @db.Integer
+  resume                   String?                                 @db.Text
+  cover_letter             String?                                 @db.Text
+  others                   String?                                 @db.Text
+  contracts                String?                                 @db.Text
+  offer                    String?                                 @db.Text
+  current_location         String?                                 @db.VarChar(20)
+  relocation               Boolean?                                @db.Boolean
+  posting_title_id         Int?                                    @db.Integer
+  ratings                  Int?                                    @db.Integer
+  overall_comments         String?                                 @db.Text
+  gender                   String?                                 @db.VarChar(20)
+  marital_status           String?                                 @db.VarChar(20)
+  emergency_contact_number String?                                 @db.VarChar(30)
+  blood_group              String?                                 @db.VarChar(20)
+  profile_image            String?                                 @db.VarChar(256)
+  total_experience         String?                                 @db.VarChar(30)
+  permanent_address        String?                                 @db.VarChar(256)
+  date_of_contract         DateTime?                               @db.Date
+  user_exit_status         String?                                 @db.VarChar(50)
+  date_of_confirmation     DateTime?                               @db.Date
+  contract_end_date        DateTime?                               @db.Date
+  invalid_attempt          Boolean?                                @db.Boolean
+  lock_time                Boolean?                                @db.Boolean
+  password_history         String?                                 @db.VarChar(256)
+  background_chk_status    String?                                 @db.VarChar(30)
+  candidate_referred_by    String?                                 @db.VarChar(30)
+  company_id               String?                                 @db.VarChar(30)
+  is_onboarding            Boolean?                                @db.Boolean
+  invite_user              String?                                 @db.VarChar(50)
+  is_active                Boolean?                                @db.Boolean
+  created_by               Int?                                    @db.Integer
+  modified_by              Int?                                    @db.Integer
+  created_date             DateTime?                               @db.Timestamp(6)
+  modified_date            DateTime?                               @db.Timestamp(6)
+  offer_designation        nova_designation_main?                  @relation(fields: [offer_designation_id], references: [id], name: "offer_designation")
+  job_type                 nova_job_type_main?                     @relation(fields: [job_type_id], references: [id], name: "job_type")
+  user_status_by           nucleus_user_status?                    @relation(fields: [user_status], references: [id], name: "user_status_by")
+  postingtitle             nova_manpower_requisition_main?         @relation(fields: [posting_title_id], references: [id], name: "postingtitle")
+  profilesources           nova_profile_source_main?               @relation(fields: [profile_source_id], references: [id], name: "profilesources")
+  qualification            nova_highest_qualification_main?        @relation(fields: [highest_qualification_id], references: [id], name: "qualification")
+  recruiter_by             nucleus_employee_main?                  @relation(fields: [recruiter], references: [id], name: "recruiter_by")
+  created                  nucleus_employee_main?                  @relation(fields: [created_by], references: [id], name: "created")
+  modified                 nucleus_employee_main?                  @relation(fields: [modified_by], references: [id], name: "modified")
+  user                     nova_interview_main[]                   @relation(name: "user")
+  user_id_by               nucleus_user_experience_details_main[]  @relation(name: "user_id_by")
+  user_by                  nucleus_user_educational_details_main[] @relation(name: "user_by")
+}
+
+model nucleus_organization_main {
+  id                          Int                           @id
+  organization_name           String                        @db.VarChar(255)
+  org_image                   String                        @db.VarChar(255)
+  domain                      String?                       @db.VarChar(255)
+  website                     String                        @db.VarChar(255)
+  total_employees             String                        @db.VarChar(150)
+  registration_number         String                        @db.VarChar(255)
+  org_start_date              DateTime                      @db.Timestamp(6)
+  phone_number                String                        @db.VarChar(255)
+  secondary_phone             String?                       @db.VarChar(255)
+  email                       String                        @db.VarChar(255)
+  secondary_email             String?                       @db.VarChar(255)
+  fax_number                  String?                       @db.VarChar(255)
+  country                     String                        @db.VarChar(150)
+  state                       String                        @db.VarChar(150)
+  city                        String                        @db.VarChar(150)
+  address                     String                        @db.VarChar(255)
+  description                 String                        @db.VarChar(255)
+  org_head                    String                        @db.VarChar(255)
+  designation                 String[]                      @db.VarChar
+  user_license                Int?                          @db.Integer
+  is_active                   Boolean?                      @default(true)
+  created_by                  Int?                          @db.Integer
+  modified_by                 Int?                          @db.Integer
+  created_date                DateTime?                     @db.Timestamp(6)
+  modified_date               DateTime?                     @db.Timestamp(6)
+  nucleus_legal_entity_main   nucleus_legal_entity_main[]
+  nucleus_module_main         nucleus_module_main[]
+  nucleus_sitepreference_main nucleus_sitepreference_main[]
+}
+
+model nucleus_business_unit_main {
+  id                        Int                        @id @default(autoincrement())
+  name                      String                     @unique(map: "nucleus_business_unit_main_un") @db.VarChar(255)
+  legal_entity_id           Int?
+  unit_code                 String?                    @db.VarChar(50)
+  description               String?                    @db.VarChar(255)
+  is_active                 Boolean?                   @default(true)
+  is_deleted                Boolean?                   @db.Boolean
+  created_by                Int?                       @db.Integer
+  modified_by               Int?                       @db.Integer
+  created_date              DateTime?                  @db.Timestamp(6)
+  modified_date             DateTime?                  @db.Timestamp(6)
+  nucleus_legal_entity_main nucleus_legal_entity_main? @relation(fields: [legal_entity_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  nucleus_division_main     nucleus_division_main[]
+}
+
+model nucleus_currency_main {
+  id            Int       @id @default(autoincrement())
+  code          String    @db.VarChar(30)
+  name          String    @db.VarChar(50)
+  symbol        String?   @db.VarChar(10)
+  exchange_rate Decimal?  @db.Decimal(10, 4)
+  is_active     Boolean   @db.Boolean
+  created_by    Int?      @db.Integer
+  modified_by   Int?      @db.Integer
+  createddate   DateTime? @db.Timestamp(6)
+  modifieddate  DateTime? @db.Timestamp(6)
+}
+
+model nucleus_department_main {
+  id                    Int                              @id @default(autoincrement())
+  name                  String                           @unique @db.VarChar(150)
+  division_id           Int?                             @db.Integer
+  dept_code             String?                          @db.VarChar(20)
+  description           String?                          @db.VarChar(255)
+  start_date            DateTime?                        @db.Date
+  dept_head             Int?                             @db.Integer
+  is_active             Boolean?                         @default(true)
+  is_deleted            Boolean?                         @db.Boolean
+  created_by            Int?                             @db.Integer
+  modified_by           Int?                             @db.Integer
+  created_date          DateTime?                        @db.Timestamp(6)
+  modified_date         DateTime?                        @db.Timestamp(6)
+  nucleus_division_main nucleus_division_main?           @relation(fields: [division_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  department            nova_manpower_requisition_main[] @relation(name: "department")
+  dept                  nucleus_employee_main[]          @relation(name: "dept")
+}
+
+model nucleus_employee_main {
+  id                       Int                                 @id @default(autoincrement())
+  employee_code            String?                             @db.VarChar(20)
+  salutation               String?                             @db.VarChar(10)
+  first_name               String?                             @db.VarChar(50)
+  last_name                String?                             @db.VarChar(50)
+  date_of_birth            DateTime?                           @db.Date
+  email_address            String?                             @db.VarChar(50)
+  contact_number           String?                             @db.VarChar(20)
+  password                 String?                             @db.VarChar(256)
+  reporting_manager_id     String?                             @db.VarChar(50)
+  designation_id           Int?                                @db.Integer
+  employee_type            String?                             @db.VarChar(50)
+  employee_status          String?                             @db.VarChar(50)
+  gender                   String?                             @db.VarChar(20)
+  marital_status           String?                             @db.VarChar(20)
+  emergency_contact_number String?                             @db.VarChar(30)
+  relevant_experience      String?                             @db.VarChar(50)
+  role_id                  Int?                                @db.Integer
+  profile_image            String?                             @db.VarChar(256)
+  total_experience         String?                             @db.VarChar(30)
+  primary_skill            String?                             @db.VarChar(50)
+  secondary_skill          String?                             @db.VarChar(50)
+  source_of_hire_id        String?                             @db.VarChar(50)
+  seating_location         String?                             @db.VarChar(30)
+  date_of_contract         DateTime?                           @db.Date
+  notice_period            String?                             @db.VarChar(50)
+  team_name                String?                             @db.VarChar(50)
+  date_of_confirmation     DateTime?                           @db.Date
+  client                   String?                             @db.VarChar(30)
+  probation_status         String?                             @db.VarChar(30)
+  probation_extended_date  DateTime?                           @db.Date
+  probation_period         String?                             @db.VarChar(10)
+  probation_due_date       DateTime?                           @db.Date
+  joining_day              String?                             @db.VarChar(20)
+  joining_status           String?                             @db.VarChar(20)
+  contract_end_date        DateTime?                           @db.Date
+  invalid_attempt          Boolean?                            @db.Boolean
+  lock_time                Boolean?                            @db.Boolean
+  password_history         String?                             @db.VarChar(256)
+  employee_full_name       String?                             @db.VarChar(50)
+  employee_ip_address      String?                             @db.VarChar(50)
+  background_check_status  String?                             @db.VarChar(30)
+  job_title_id             String?                             @db.VarChar(30)
+  tour_flag                Boolean?                            @db.Boolean
+  mode_of_entry            String?                             @db.VarChar(30)
+  entry_comments           String?                             @db.VarChar(30)
+  candidate_referred_by    String?                             @db.VarChar(30)
+  company_id               String?                             @db.VarChar(30)
+  employee_temp_lock       String?                             @db.VarChar(255)
+  employee_reason_locked   String?                             @db.VarChar(255)
+  employee_locked_date     DateTime?                           @db.Date
+  google_id                String?                             @db.VarChar(150)
+  shift_id                 Int                                 @db.Integer
+  date_of_joining          DateTime?                           @db.Date
+  date_of_leaving          DateTime?                           @db.Date
+  business_unit_id         Int?                                @db.Integer
+  legal_entity_id          Int?                                @db.Integer
+  division_id              Int?                                @db.Integer
+  department_id            Int?                                @db.Integer
+  extension_number         String?                             @db.VarChar(20)
+  office_number            String?                             @db.VarChar(100)
+  office_fax_number        String?                             @db.VarChar(100)
+  is_mega_admin            Boolean?                            @db.Boolean
+  is_active                Boolean?                            @db.Boolean
+  created_by               Int?                                @db.Integer
+  modified_by              Int?                                @db.Integer
+  created_date             DateTime?                           @db.Timestamp(6)
+  modified_date            DateTime?                           @db.Timestamp(6)
+  shift                    nucleus_shift_main                  @relation(fields: [shift_id], references: [id], name: "shift")
+  role                     nucleus_role_main?                  @relation(fields: [role_id], references: [id], name: "role")
+  employee                 nucleus_attendance_main[]           @relation(name: "employee")
+  legel_created_by         nucleus_legal_entity_main[]         @relation(name: "legel_created_by")
+  legel_modified_by        nucleus_legal_entity_main[]         @relation(name: "legel_modified_by")
+  approved                 nucleus_attendance_regularization[] @relation(name: "approved")
+  createdby                nova_manpower_requisition_main[]    @relation(name: "createdby")
+  hiringmanager            nova_manpower_requisition_main[]    @relation(name: "hiringmanager")
+  assignedrecruiter        nova_manpower_requisition_main[]    @relation(name: "assignedrecruiter")
+  modifiedby               nova_manpower_requisition_main[]    @relation(name: "modifiedby")
+  firstlevelapprover       nova_manpower_requisition_main[]    @relation(name: "firstlevelapprover")
+  secondlevelapprover      nova_manpower_requisition_main[]    @relation(name: "secondlevelapprover")
+  thirdlevelapprover       nova_manpower_requisition_main[]    @relation(name: "thirdlevelapprover")
+  recruiter_by             nucleus_user_main[]                 @relation(name: "recruiter_by")
+  created                  nucleus_user_main[]                 @relation(name: "created")
+  modified                 nucleus_user_main[]                 @relation(name: "modified")
+  assigned_recruiter_by    nova_interview_main[]               @relation(name: "assigned_recruiter_by")
+  created_by_id            nova_interview_main[]               @relation(name: "created_by_id")
+  modified_by_id           nova_interview_main[]               @relation(name: "modified_by_id")
+  reviewed                 nova_interview_main[]               @relation(name: "reviewed")
+  designation              nova_designation_main?              @relation(fields: [designation_id], references: [id], name: "designation")
+  dept                     nucleus_department_main?            @relation(fields: [department_id], references: [id], name: "dept")
+  division                 nucleus_division_main?              @relation(fields: [division_id], references: [id], name: "division")
+  legal_entity             nucleus_legal_entity_main?          @relation(fields: [legal_entity_id], references: [id], name: "legal_entity")
+}
+
+model nucleus_employee_bank_details {
+  id                  Int       @id @default(autoincrement())
+  employee_id         Int       @db.Integer
+  bank_name           String    @db.VarChar(50)
+  branch_name         String    @db.VarChar(50)
+  bank_account        String    @db.VarChar(50)
+  bank_address        String    @db.VarChar(256)
+  ifsc_code           String    @db.VarChar(50)
+  account_holder_name String    @db.VarChar(50)
+  uan_number          String    @db.VarChar(50)
+  nominee_name        String    @db.VarChar(50)
+  is_active           Boolean?  @db.Boolean
+  created_by          Int?      @db.Integer
+  modified_by         Int?      @db.Integer
+  created_date        DateTime? @db.Timestamp(6)
+  modified_date       DateTime? @db.Timestamp(6)
+}
+
+model nucleus_employee_details {
+  id                             Int       @id @default(autoincrement())
+  employee_id                    Int       @db.Integer
+  personal_email_address         String?   @db.VarChar(50)
+  permanent_address              String    @db.VarChar(256)
+  permanent_city                 String    @db.VarChar(30)
+  permanent_state                String    @db.VarBit(30)
+  permanent_country              String    @db.VarChar(30)
+  permanent_pincode              String    @db.VarChar(30)
+  current_address                String?   @db.VarChar(256)
+  current_city                   String    @db.VarChar(30)
+  current_state                  String    @db.VarBit(30)
+  current_country                String    @db.VarChar(30)
+  current_pincode                String    @db.VarChar(30)
+  blood_group                    String?   @db.VarChar(20)
+  work_location                  String    @db.VarChar(30)
+  marriage_date                  DateTime  @db.Date
+  place_of_birth                 String    @db.VarChar(30)
+  aadharcard                     String    @db.VarChar(30)
+  pancard                        String    @db.VarChar(30)
+  religion                       String    @db.VarChar(10)
+  nationality                    String    @db.VarChar(30)
+  language                       String    @db.VarChar(30)
+  previous_company               String    @db.VarChar(30)
+  international_employee         String    @db.VarChar(10)
+  physically_challenged          String    @db.VarChar(10)
+  about_me                       String    @db.Text
+  passport_number                String    @db.VarChar(30)
+  age                            String    @db.VarChar(10)
+  bench_status                   String    @db.VarChar(30)
+  current_permenent_address_same Boolean   @db.Boolean
+  is_active                      Boolean?  @db.Boolean
+  created_by                     Int?      @db.Integer
+  modified_by                    Int?      @db.Integer
+  created_date                   DateTime? @db.Timestamp(6)
+  modified_date                  DateTime? @db.Timestamp(6)
+}
+
+model nucleus_employee_family_details {
+  id                  Int       @id @default(autoincrement())
+  employee_details_id Int?      @db.Integer
+  father_name         String?   @db.VarChar(30)
+  mother_name         String?   @db.VarBit(30)
+  age                 Int?      @db.Integer
+  relation            String?   @db.VarChar(30)
+  spouse              String?   @db.VarChar(30)
+  is_active           Boolean?  @db.Boolean
+  created_by          Int?      @db.Integer
+  modified_by         Int?      @db.Integer
+  created_date        DateTime? @db.Timestamp(6)
+  modified_date       DateTime? @db.Timestamp(6)
+}
+
+model nucleus_holiday_main {
+  id            Int       @id @default(autoincrement())
+  name          String    @db.VarChar(256)
+  holiday       DateTime  @db.Date
+  is_deleted    Boolean?  @db.Boolean
+  is_optional   Boolean?  @db.Boolean
+  from          String?   @db.VarChar(20)
+  to            String?   @db.VarChar(20)
+  created_by    Int       @unique
+  modified_by   Int       @unique
+  created_date  DateTime? @db.Timestamp(6)
+  modified_date DateTime? @db.Timestamp(6)
+}
+
+model nucleus_module_main {
+  id                        Int                       @id @default(autoincrement())
+  organization_id           Int                       @db.Integer
+  module_name               String                    @db.VarChar(256)
+  module_desc               String?                   @db.VarChar(256)
+  is_active                 Boolean?                  @db.Boolean
+  is_enabled                Boolean?                  @db.Boolean
+  is_ai_enabled             Boolean?                  @db.Boolean
+  module_title              String?                   @db.VarChar(50)
+  created_by                Int?                      @db.Integer
+  modified_by               Int?                      @db.Integer
+  created_date              DateTime?                 @db.Timestamp(6)
+  modified_date             DateTime?                 @db.Timestamp(6)
+  nucleus_organization_main nucleus_organization_main @relation(fields: [organization_id], references: [id])
+}
+
+model nucleus_role_main {
+  id                 Int                     @id @default(autoincrement())
+  role_name          String                  @db.VarChar(256)
+  level_id           Int                     @db.Integer
+  role_desc          String                  @db.VarChar(256)
+  is_read_allowed    Boolean                 @db.Boolean
+  is_write_allowed   Boolean                 @db.Boolean
+  is_update_allowed  Boolean                 @db.Boolean
+  is_delete_allowed  Boolean                 @db.Boolean
+  is_active          Boolean                 @db.Boolean
+  created_by         Int                     @db.Integer
+  modified_by        Int                     @db.Integer
+  created_date       DateTime?               @db.Timestamp(6)
+  modified_date      DateTime?               @db.Timestamp(6)
+  nucleus_role_level nucleus_role_level      @relation(fields: [level_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "nucleus_role_main_fk")
+  role               nucleus_employee_main[] @relation(name: "role")
+}
+
+model nucleus_role_level {
+  id                Int                 @id @default(autoincrement())
+  level_name        String              @db.VarChar(50)
+  level_desc        String              @db.VarChar()
+  is_active         Boolean             @db.Boolean
+  created_by        Int                 @db.Integer
+  modified_by       Int                 @db.Integer
+  created_date      DateTime?           @db.Timestamp(6)
+  modified_date     DateTime?           @db.Timestamp(6)
+  nucleus_role_main nucleus_role_main[]
+}
+
+model nucleus_shift_main {
+  id             Int                       @id @default(autoincrement())
+  name           String                    @db.VarChar(50)
+  from           String?                   @db.VarChar(50)
+  to             String?                   @db.VarChar(50)
+  reason         String?                   @db.VarChar(256)
+  is_deleted     Boolean?                  @db.Boolean
+  financial_year String?                   @db.VarChar(20)
+  created_by     Int?                      @db.Integer
+  modified_by    Int?                      @db.Integer
+  createddate    DateTime?                 @db.Timestamp(6)
+  modifieddate   DateTime?                 @db.Timestamp(6)
+  shift          nucleus_employee_main[]   @relation(name: "shift")
+  shift_by_id    nucleus_attendance_main[] @relation(name: "shift_by_id")
+}
+
+model nucleus_sitepreference_main {
+  id                        Int                       @id
+  emp_code                  String                    @db.VarChar(255)
+  date_format_id            String                    @db.VarChar(255)
+  time_format_id            String                    @db.VarChar(255)
+  time_zone_id              String                    @db.VarChar(255)
+  currency_id               String                    @db.VarChar(255)
+  password_id               String                    @db.VarChar(255)
+  description               String?                   @db.VarChar(255)
+  font_type                 String                    @db.VarChar(255)
+  font_size                 String                    @db.VarChar(255)
+  colour_primary            String                    @db.VarChar(255)
+  colour_secondary          String                    @db.VarChar(255)
+  colour_tertiary           String                    @db.VarChar(255)
+  login_image               String?                   @db.VarChar(255)
+  login_message             String?                   @db.VarChar(255)
+  is_active                 Boolean?                  @db.Boolean
+  org_modules               Json?                     @db.Json
+  employment_status         String[]                  @db.VarChar
+  country                   String?                   @db.VarChar(255)
+  state                     String?                   @db.VarChar(255)
+  city                      String?                   @db.VarChar(255)
+  org_id                    Int                       @db.Integer
+  created_by                Int?                      @db.Integer
+  modified_by               Int?                      @db.Integer
+  created_date              DateTime?                 @db.Timestamp(6)
+  modified_date             DateTime?                 @db.Timestamp(6)
+  nucleus_organization_main nucleus_organization_main @relation(fields: [org_id], references: [id])
+}
+
+model Temp_employee {
+  id             Int       @id(map: "temp_users_pk") @default(autoincrement())
+  employee_id    Int?      @db.Integer
+  otp            Int?      @db.Integer
+  status         String    @default("pending") @db.VarChar(20)
+  email_address  String    @db.VarChar(100)
+  contact_number String    @db.VarChar(25)
+  expired_at     Int?      @db.Integer
+  created_date   DateTime? @db.Timestamp(6)
+  modified_date  DateTime? @db.Timestamp(6)
+}
+
+model nucleus_attendance_main {
+  id                    Int                                 @id @default(autoincrement())
+  employee_id           Int                                 @db.Integer
+  date                  DateTime?                           @db.Date
+  check_in              DateTime?                           @db.Timestamp(6)
+  check_out             DateTime?                           @db.Timestamp(6)
+  total_hours           String?                             @db.VarChar(20)
+  shift_id              Int?                                @db.Integer
+  attendance_medium     String?                             @db.VarChar()
+  attendance_status     String?                             @db.VarChar(20)
+  attendance_setting_id Int?                                @db.Integer
+  multiple_in_out       Json?                               @db.Json
+  is_active             Boolean?                            @db.Boolean
+  created_by            Int?                                @db.Integer
+  modified_by           Int?                                @db.Integer
+  created_date          DateTime?                           @db.Timestamp(6)
+  modified_date         DateTime?                           @db.Timestamp(6)
+  shift_by_id           nucleus_shift_main?                 @relation(fields: [shift_id], references: [id], name: "shift_by_id")
+  employee              nucleus_employee_main               @relation(fields: [employee_id], references: [id], name: "employee")
+  attendance            nucleus_attendance_regularization[] @relation(name: "attendance")
+}
+
+model nucleus_attendance_regularization {
+  id                      Int                     @id @default(autoincrement())
+  attendance_id           Int                     @db.Integer
+  date                    DateTime                @db.Date
+  regularized_check_in    DateTime                @db.Timestamp(6)
+  regularized_check_out   DateTime                @db.Timestamp(6)
+  regularized_total_hours String                  @db.VarChar(20)
+  approval_status         String?                 @db.VarChar(20)
+  reason                  String                  @db.Text
+  description             String                  @db.VarChar()
+  approved_by             Int                     @db.Integer
+  is_deleted              Boolean?                @db.Boolean
+  is_active               Boolean?                @db.Boolean
+  created_by              Int?                    @db.Integer
+  modified_by             Int?                    @db.Integer
+  created_date            DateTime?               @db.Timestamp(6)
+  modified_date           DateTime?               @db.Timestamp(6)
+  attendance              nucleus_attendance_main @relation(fields: [attendance_id], references: [id], name: "attendance")
+  approved                nucleus_employee_main   @relation(fields: [approved_by], references: [id], name: "approved")
+}
+
+model nucleus_attendance_setting {
+  id                      Int       @id @default(autoincrement())
+  total_hours_calculation String?   @db.VarChar()
+  minimum_hours_full_day  String?   @db.VarChar()
+  minimum_hours_half_day  String?   @db.VarChar()
+  show_over_time          Boolean?  @db.Boolean
+  include_weekend         Boolean?  @db.Boolean
+  include_holidays        Boolean?  @db.Boolean
+  include_leave           Boolean?  @db.Boolean
+  is_active               Boolean?  @db.Boolean
+  created_by              Int?      @db.Integer
+  modified_by             Int?      @db.Integer
+  created_date            DateTime? @db.Timestamp(6)
+  modified_date           DateTime? @db.Timestamp(6)
+}
+
+model blacklist {
+  id            Int       @id(map: "blacklist_pk") @default(autoincrement())
+  token         String    @db.VarChar(250)
+  is_active     Boolean?  @db.Boolean
+  created_by    Int?      @db.Integer
+  modified_by   Int?      @db.Integer
+  created_date  DateTime? @db.Timestamp(6)
+  modified_date DateTime? @db.Timestamp(6)
+}
+
+model nucleus_legal_entity_main {
+  id                         Int                          @id(map: "nucleus_legal_entity_main_pk") @default(autoincrement())
+  org_id                     Int                          @db.Integer
+  name                       String                       @unique @db.VarChar(150)
+  legal_entity_code          String?                      @db.VarChar(20)
+  description                String?                      @db.VarChar(255)
+  is_active                  Boolean?                     @default(true)
+  is_deleted                 Boolean?                     @db.Boolean
+  created_by                 Int?                         @db.Integer
+  modified_by                Int?                         @db.Integer
+  created_date               DateTime?                    @db.Timestamp(6)
+  modified_date              DateTime?                    @db.Timestamp(6)
+  nucleus_business_unit_main nucleus_business_unit_main[]
+  nucleus_organization_main  nucleus_organization_main    @relation(fields: [org_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "nucleus_legal_entity_main_fk")
+  legel_created_by           nucleus_employee_main?       @relation(fields: [created_by], references: [id], name: "legel_created_by")
+  legel_modified_by          nucleus_employee_main?       @relation(fields: [modified_by], references: [id], name: "legel_modified_by")
+  legal_entity               nucleus_employee_main[]      @relation(name: "legal_entity")
+}
+
+model nucleus_division_main {
+  id                         Int                         @id @default(autoincrement())
+  name                       String                      @unique @db.VarChar(256)
+  description                String?                     @db.VarChar(256)
+  business_unit_id           Int?                        @db.Integer
+  is_deleted                 Boolean?                    @db.Boolean
+  is_active                  Boolean?                    @default(true)
+  created_by                 Int?                        @db.Integer
+  modified_by                Int?                        @db.Integer
+  created_date               DateTime?                   @db.Timestamp(6)
+  modified_date              DateTime?                   @db.Timestamp(6)
+  nucleus_department_main    nucleus_department_main[]
+  nucleus_business_unit_main nucleus_business_unit_main? @relation(fields: [business_unit_id], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "nucleus_division_main_fk")
+  division                   nucleus_employee_main[]     @relation(name: "division")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model properties {
+  id Int @default(autoincrement())
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model session {
+  sid    String    @id(map: "session_pk") @db.VarChar
+  sess   Json?     @db.Json
+  expire DateTime? @db.Timestamp(6)
+  token  String?   @db.VarChar(256)
+}
+
+model nova_manpower_requisition_main {
+  id                              Int                       @id @default(autoincrement())
+  posting_title                   String                    @unique @db.VarChar(256)
+  department_id                   Int                       @db.Integer
+  team_id                         Int?                      @db.Integer
+  number_of_positions             String                    @db.VarChar(10)
+  job_type_id                     Int                       @db.Integer
+  qualification_required_desired  String?                   @db.VarChar(256)
+  work_experience_id              Int                       @db.Integer
+  reason_for_requirement          String?                   @db.VarChar(256)
+  job_opening_status              String?                   @db.VarChar(50)
+  date_opened                     DateTime                  @db.Date
+  target_date                     DateTime                  @db.Date
+  hiring_manager                  Int?                      @db.Integer
+  assigned_recruiter              Int?                      @db.Integer
+  priority                        String                    @db.VarChar(30)
+  industry_id                     Int?                      @db.Integer
+  skill_set_id                    Int?                      @db.Integer
+  secondary_skill_set             String?                   @db.VarChar(256)
+  budget                          String?                   @db.VarChar(256)
+  city                            String?                   @db.VarChar(30)
+  country                         String?                   @db.VarChar(30)
+  state                           String?                   @db.VarChar(30)
+  postal_code                     String?                   @db.VarChar(30)
+  remote_job                      Boolean?                  @db.Boolean
+  job_description                 String?                   @db.Text
+  salary_id                       Int?                      @db.Integer
+  first_level_approval            String                    @db.VarChar(30)
+  second_level_approval           String?                   @db.VarChar(30)
+  third_level_approval            String?                   @db.VarChar(30)
+  first_level_approver            Int                       @db.Integer
+  second_level_approver           Int?                      @db.Integer
+  third_level_approver            Int?                      @db.Integer
+  job_summary                     String?                   @db.Text
+  other                           String?                   @db.Text
+  date_closed                     DateTime?                 @db.Date
+  publish                         String?                   @db.VarChar(50)
+  associated_tag                  String?                   @db.VarChar(50)
+  last_activity_time              DateTime?                 @db.Timestamp(6)
+  client                          String?                   @db.Text
+  number_of_associated_candidates Int?                      @db.Integer
+  is_active                       Boolean?                  @default(true)
+  created_by                      Int?                      @db.Integer
+  modified_by                     Int?                      @db.Integer
+  created_date                    DateTime?                 @db.Timestamp(6)
+  modified_date                   DateTime?                 @db.Timestamp(6)
+  department                      nucleus_department_main   @relation(fields: [department_id], references: [id], name: "department")
+  industry                        nova_industry_main?       @relation(fields: [industry_id], references: [id], name: "industry")
+  jobtype                         nova_job_type_main        @relation(fields: [job_type_id], references: [id], name: "jobtype")
+  salary                          nova_salary_range_main?   @relation(fields: [salary_id], references: [id], name: "salary")
+  skillset                        nova_skillset_main?       @relation(fields: [skill_set_id], references: [id], name: "skillset")
+  team                            nova_team_main?           @relation(fields: [team_id], references: [id], name: "team")
+  createdby                       nucleus_employee_main?    @relation(fields: [created_by], references: [id], name: "createdby")
+  hiringmanager                   nucleus_employee_main?    @relation(fields: [hiring_manager], references: [id], name: "hiringmanager")
+  assignedrecruiter               nucleus_employee_main?    @relation(fields: [assigned_recruiter], references: [id], name: "assignedrecruiter")
+  modifiedby                      nucleus_employee_main?    @relation(fields: [modified_by], references: [id], name: "modifiedby")
+  firstlevelapprover              nucleus_employee_main     @relation(fields: [first_level_approver], references: [id], name: "firstlevelapprover")
+  secondlevelapprover             nucleus_employee_main?    @relation(fields: [second_level_approver], references: [id], name: "secondlevelapprover")
+  thirdlevelapprover              nucleus_employee_main?    @relation(fields: [third_level_approver], references: [id], name: "thirdlevelapprover")
+  workexperience                  nova_work_experience_main @relation(fields: [work_experience_id], references: [id], name: "workexperience")
+  postingtitle                    nucleus_user_main[]       @relation(name: "postingtitle")
+  manpower_requisition            nova_interview_main[]     @relation(name: "manpower_requisition")
+}
+
+model nova_interview_main {
+  id                      Int                            @id @default(autoincrement())
+  manpower_requisition_id Int                            @db.Integer
+  user_id                 Int                            @db.Integer
+  name                    String                         @db.VarChar(50)
+  type                    String?                        @db.VarChar(50)
+  round                   String?                        @db.VarChar(50)
+  location                String                         @db.Text
+  reminder_id             Int                            @db.Integer
+  from                    DateTime                       @db.Time()
+  to                      DateTime                       @db.Time()
+  assessment              String?                        @db.VarChar(50)
+  schedule_comments       String?                        @db.Text
+  cancellation_reason     String?                        @db.Text
+  cancellation_comments   String?                        @db.Text
+  is_deleted              Boolean?                       @db.Boolean
+  attachments             String?                        @db.Text
+  reviewed_by             Int                            @db.Integer
+  reviewed_time           DateTime?                      @db.Timestamp(6)
+  review_comments         String?                        @db.Text
+  last_activity_time      DateTime?                      @db.Timestamp(6)
+  interview_status        String?                        @db.VarChar(50)
+  user_status_id          Int                            @db.Integer
+  zoom_event_id           String?                        @db.VarChar(10)
+  interview_link          String?                        @db.Text
+  google_meeting_id       Boolean?                       @db.Boolean
+  assigned_recruiter      Int                            @db.Integer
+  is_active               Boolean?                       @default(true)
+  created_by              Int                            @db.Integer
+  modified_by             Int                            @db.Integer
+  created_date            DateTime?                      @db.Timestamp(6)
+  modified_date           DateTime?                      @db.Timestamp(6)
+  user_status             nucleus_user_status?           @relation(fields: [user_status_id], references: [id], name: "user_status")
+  manpower_requisition    nova_manpower_requisition_main @relation(fields: [manpower_requisition_id], references: [id], name: "manpower_requisition")
+  reminder                nova_reminder_main             @relation(fields: [reminder_id], references: [id], name: "reminder")
+  assigned_recruiter_by   nucleus_employee_main          @relation(fields: [assigned_recruiter], references: [id], name: "assigned_recruiter_by")
+  created_by_id           nucleus_employee_main          @relation(fields: [created_by], references: [id], name: "created_by_id")
+  modified_by_id          nucleus_employee_main          @relation(fields: [modified_by], references: [id], name: "modified_by_id")
+  reviewed                nucleus_employee_main          @relation(fields: [reviewed_by], references: [id], name: "reviewed")
+  user                    nucleus_user_main              @relation(fields: [user_id], references: [id], name: "user")
+}
+
+model nucleus_user_status {
+  id             Int                   @id @default(autoincrement())
+  name           String?               @db.VarChar(256)
+  category       String?               @db.VarChar(256)
+  is_active      Boolean?              @default(true)
+  created_by     Int?                  @db.Integer
+  modified_by    Int?                  @db.Integer
+  created_date   DateTime?             @db.Timestamp(6)
+  modified_date  DateTime?             @db.Timestamp(6)
+  user_status_by nucleus_user_main[]   @relation(name: "user_status_by")
+  user_status    nova_interview_main[] @relation(name: "user_status")
+}
+
+model nova_designation_main {
+  id                    Int                     @id @default(autoincrement())
+  name                  String                  @db.VarChar(50)
+  is_deleted            Boolean?                @db.Boolean
+  is_active             Boolean?                @default(true)
+  created_by            Int?                    @db.Integer
+  modified_by           Int?                    @db.Integer
+  created_date          DateTime?               @db.Timestamp(6)
+  modified_date         DateTime?               @db.Timestamp(6)
+  offer_designation     nucleus_user_main[]     @relation(name: "offer_designation")
+  nucleus_employee_main nucleus_employee_main[] @relation(name: "designation")
+}
+
+model nova_industry_main {
+  id            Int                              @id @default(autoincrement())
+  name          String                           @db.VarChar(50)
+  is_deleted    Boolean?                         @db.Boolean
+  is_active     Boolean?                         @default(true)
+  created_by    Int?                             @db.Integer
+  modified_by   Int?                             @db.Integer
+  created_date  DateTime?                        @db.Timestamp(6)
+  modified_date DateTime?                        @db.Timestamp(6)
+  industry      nova_manpower_requisition_main[] @relation(name: "industry")
+}
+
+model nova_job_type_main {
+  id            Int                              @id @default(autoincrement())
+  name          String                           @db.VarChar(50)
+  is_deleted    Boolean?                         @db.Boolean
+  is_active     Boolean?                         @default(true)
+  created_by    Int?                             @db.Integer
+  modified_by   Int?                             @db.Integer
+  created_date  DateTime?                        @db.Timestamp(6)
+  modified_date DateTime?                        @db.Timestamp(6)
+  jobtype       nova_manpower_requisition_main[] @relation(name: "jobtype")
+  job_type      nucleus_user_main[]              @relation(name: "job_type")
+}
+
+model nova_profile_source_main {
+  id             Int                 @id @default(autoincrement())
+  name           String              @db.VarChar(50)
+  is_deleted     Boolean?            @db.Boolean
+  is_active      Boolean?            @default(true)
+  created_by     Int?                @db.Integer
+  modified_by    Int?                @db.Integer
+  created_date   DateTime?           @db.Timestamp(6)
+  modified_date  DateTime?           @db.Timestamp(6)
+  profilesources nucleus_user_main[] @relation(name: "profilesources")
+}
+
+model nova_highest_qualification_main {
+  id            Int                 @id @default(autoincrement())
+  name          String              @db.VarChar(50)
+  is_deleted    Boolean?            @db.Boolean
+  is_active     Boolean?            @default(true)
+  created_by    Int?                @db.Integer
+  modified_by   Int?                @db.Integer
+  created_date  DateTime?           @db.Timestamp(6)
+  modified_date DateTime?           @db.Timestamp(6)
+  qualification nucleus_user_main[] @relation(name: "qualification")
+}
+
+model nova_reminder_main {
+  id            Int                   @id @default(autoincrement())
+  name          String                @db.VarChar(50)
+  is_deleted    Boolean?              @db.Boolean
+  is_active     Boolean?              @default(true)
+  created_by    Int?                  @db.Integer
+  modified_by   Int?                  @db.Integer
+  created_date  DateTime?             @db.Timestamp(6)
+  modified_date DateTime?             @db.Timestamp(6)
+  reminder      nova_interview_main[] @relation(name: "reminder")
+}
+
+model nova_salary_range_main {
+  id            Int                              @id @default(autoincrement())
+  name          String                           @db.VarChar(50)
+  is_deleted    Boolean?                         @db.Boolean
+  is_active     Boolean?                         @default(true)
+  created_by    Int?                             @db.Integer
+  modified_by   Int?                             @db.Integer
+  created_date  DateTime?                        @db.Timestamp(6)
+  modified_date DateTime?                        @db.Timestamp(6)
+  salary        nova_manpower_requisition_main[] @relation(name: "salary")
+}
+
+model nova_skillset_main {
+  id            Int                              @id @default(autoincrement())
+  name          String                           @db.VarChar(50)
+  is_deleted    Boolean?                         @db.Boolean
+  is_active     Boolean?                         @default(true)
+  created_by    Int?                             @db.Integer
+  modified_by   Int?                             @db.Integer
+  created_date  DateTime?                        @db.Timestamp(6)
+  modified_date DateTime?                        @db.Timestamp(6)
+  skillset      nova_manpower_requisition_main[] @relation(name: "skillset")
+}
+
+model nova_team_main {
+  id            Int                              @id @default(autoincrement())
+  name          String                           @db.VarChar(50)
+  is_deleted    Boolean?                         @db.Boolean
+  is_active     Boolean?                         @default(true)
+  created_by    Int?                             @db.Integer
+  modified_by   Int?                             @db.Integer
+  created_date  DateTime?                        @db.Timestamp(6)
+  modified_date DateTime?                        @db.Timestamp(6)
+  team          nova_manpower_requisition_main[] @relation(name: "team")
+}
+
+model nova_work_experience_main {
+  id             Int                              @id @default(autoincrement())
+  name           String                           @db.VarChar(50)
+  is_deleted     Boolean?                         @db.Boolean
+  is_active      Boolean?                         @default(true)
+  created_by     Int?                             @db.Integer
+  modified_by    Int?                             @db.Integer
+  created_date   DateTime?                        @db.Timestamp(6)
+  modified_date  DateTime?                        @db.Timestamp(6)
+  workexperience nova_manpower_requisition_main[] @relation(name: "workexperience")
+}
+
+model nucleus_user_educational_details_main {
+  id                 Int                @id @default(autoincrement())
+  user_id            Int?               @db.Integer
+  institute_school   String?            @db.Text
+  degree             String?            @db.Text
+  major_department   String?            @db.Text
+  duration_start     DateTime?          @db.Date
+  duration_end       DateTime?          @db.Date
+  grade_percentage   String?            @db.VarChar(20)
+  currently_pursuing Boolean?           @db.Boolean
+  is_active          Boolean?           @default(true)
+  created_by         Int?               @db.Integer
+  modified_by        Int?               @db.Integer
+  created_date       DateTime?          @db.Timestamp(6)
+  modified_date      DateTime?          @db.Timestamp(6)
+  user_by            nucleus_user_main? @relation(fields: [user_id], references: [id], name: "user_by")
+}
+
+model nucleus_user_experience_details_main {
+  id                  Int                @id @default(autoincrement())
+  user_id             Int?               @db.Integer
+  company             String?            @db.Text
+  occupation_title    String?            @db.Text
+  work_duration_start DateTime?          @db.Date
+  work_duration_end   DateTime?          @db.Date
+  summary             String?            @db.Text
+  location            String             @db.VarChar(50)
+  currently_working   Boolean?           @db.Boolean
+  is_active           Boolean?           @default(true)
+  created_by          Int?               @db.Integer
+  modified_by         Int?               @db.Integer
+  created_date        DateTime?          @db.Timestamp(6)
+  modified_date       DateTime?          @db.Timestamp(6)
+  user_id_by          nucleus_user_main? @relation(fields: [user_id], references: [id], name: "user_id_by")
+}
+
+model nucleus_user_rating_history {
+  id               Int       @id @default(autoincrement())
+  rating           Int?      @db.Integer
+  overall_comments String?   @db.Text
+  posting_title_id Int?      @db.Integer
+  candidate_id     Int?      @db.Integer
+  interview_id     Int?      @db.Integer
+  reviewed_on      DateTime? @db.Timestamp(6)
+  interview_status String?   @db.VarChar(100)
+  is_active        Boolean?  @default(true)
+  created_by       Int?      @db.Integer
+  modified_by      Int?      @db.Integer
+  created_date     DateTime? @db.Timestamp(6)
+  modified_date    DateTime? @db.Timestamp(6)
+}
+
+model nova_timeline_main {
+  id                      Int       @id @default(autoincrement())
+  manpower_requisition_id Int?      @db.Integer
+  candidate_id            Int?      @db.Integer
+  interview_id            Int?      @db.Integer
+  section                 String?   @db.VarChar(100)
+  previous_status         String?   @db.VarChar(100)
+  current_status          String?   @db.VarChar(100)
+  interview_name          String?   @db.VarChar(100)
+  is_active               Boolean?  @default(true)
+  created_by              Int?      @db.Integer
+  modified_by             Int?      @db.Integer
+  created_date            DateTime? @db.Timestamp(6)
+  modified_date           DateTime? @db.Timestamp(6)
+}
